@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+
+</head>
+<body>
+<div class="panel-body col-lg-8 col-lg-offset-2">
+    <form method="post" class="form-inline">
+        {% csrf_token %}
+        <select name="action" id="" class="form-control">
+            <option value="ok">同意申请</option>
+            <option value="del">删除</option>
+        </select>
+        <button class="btn btn-sm btn-primary">确定</button>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+
+                <th>选择</th>
+                <th>序号</th>
+                <th>请假条编号</th>
+                <th>姓名</th>
+                <th>请假起始日期</th>
+                <th>请假结束日期</th>
+                <th>状态</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for notpass in all_notpass %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="pk" value={{ notpass.pk }}>
+
+                    </td>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ notpass.pk }}</td>
+                    <td>{{ notpass.name }}</td>
+                    <td>{{ notpass.start_time }}</td>
+                    <td>{{ notpass.end_time }}</td>
+                    {% if notpass.case == 'True' %}
+                        <td>已同意</td>
+                    {% else %}
+                        <td>未同意</td>
+                    {% endif %}
+
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+
+                {{ page_html }}
+
+            </ul>
+        </nav>
+
+    </form>
+
+    <p class="text-center">
+        <a href="{% url 'index' %}" class="btn btn-primary btn-lg active btn-info" role="button">回首页</a>
+    </p>
+
+
+</div>
+
+</body>
+</html>

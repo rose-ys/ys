@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>请假</title>
+
+    <link rel="stylesheet" href="/static/js/jquery-3.3.1.min.js">
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+
+
+</head>
+<body>
+
+
+<div class="panel-body col-lg-8 col-lg-offset-2">
+    <form class="form-horizontal" method="post">
+            {% csrf_token %}
+
+
+
+        {% for forms in form_obj %}
+            <div class="form-group  {% if forms.errors %}has-error{% endif %}">
+                <label   {% if not forms.forms.required %} style="color: #777777" {% endif %}
+                                                           for="{{ forms.id_for_label }}"
+                                                           class="col-sm-2 control-label">{{ forms.label }}</label>
+                <div class="col-sm-8">
+                    {{ forms }}
+                    <span class="help-block">{{ forms.errors.0 }}</span>
+                </div>
+            </div>
+        {% endfor %}
+
+
+
+
+
+
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">提交</button>
+            </div>
+        </div>
+
+
+    </form>
+
+
+
+
+
+    <p class="text-center">
+            <a href="{% url 'index' %}" class="btn btn-primary btn-lg active btn-info" role="button">回首页</a>
+    </p>
+</div>
+
+
+</body>
+</html>
